@@ -11,6 +11,11 @@ client.deployed = false;
 
 const commands = [
     {
+        name: "ping",
+        description: "Get the latency of the bot",
+        defaultPermission: true
+    },
+    {
         name: "get",
         description: "Get information from GitHub",
         defaultPermission: true,
@@ -61,98 +66,16 @@ client.on("messageCreate", message => {
         });
     };
 
-    if (["936354671747018782", "935632814324465686", "955164006446952508", "955164131844051077"].includes(message.channel.id)) {
-        message.startThread({
-            name: message.content.split` `.fiter(word => {
-                try {
-                    return new URL(word).host === "github.com";
-                } catch (_) {
-                    return false;
-                };
-            })[0].replace("https://github.com/"),
-            autoArchiveDuration: 60,
-            reason: 'Chat about this repository!',
-        });
-    };
-});
-
-client.on("messageEdit", (oldMessage, newMessage) => {
-    const data = newMessage.content.split` `;
-    const urls = data.filter(item => item.startsWith("http://") || item.startsWith("https://"));
-
-    if (newMessage.channel.id === "935632814324465686") { // repository
-        if (data.length > 20) return newMessage.delete("description too long");
-        if (urls.length !== 1) return newMessage.delete("wrong number of urls");
-
-        const url = new URL(urls[0]), path = url.pathname.split`/`;
-        if (url.origin === "https://github.com" && path.length === 3) {
-            octokit.request("GET /repos/{owner}/{repo}", {
-                owner: path[1],
-                repo: path[2]
-            }).then(repo => {
-                if (repo.status < 200 || repo.status >= 300) newMessage.delete("invalid repository");
-            }).catch(() => newMessage.delete("invalid repository"));
-        } else newMessage.delete("invalid url");
-    } else if (newMessage.channel.id === "955166306628423690") { // commit
-        if (data.length > 10) return newMessage.delete("description too long");
-        if (urls.length !== 1) return newMessage.delete("wrong number of urls");
-
-        const url = new URL(urls[0]), path = url.pathname.split`/`;
-        if (url.origin === "https://github.com" && path.length === 4) {
-            octokit.request("GET /repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head", {
-                owner: path[1],
-                repo: path[2],
-                commit_sha: path[4]
-            }).then(repo => {
-                if (repo.status < 200 || repo.status >= 300) newMessage.delete("invalid commit");
-            }).catch(() => newMessage.delete("invalid commit"));
-        } else newMessage.delete("invalid url");
-    } else if (newMessage.channel.id === "955164006446952508") { // issue
-        if (data.length > 10) return newMessage.delete("description too long");
-        if (urls.length !== 1) return newMessage.delete("wrong number of urls");
-
-        const url = new URL(urls[0]), path = url.pathname.split`/`;
-        if (url.origin === "https://github.com" && path.length === 4) {
-            octokit.request("GET /repos/{owner}/{repo}/issues/{issue_number}", {
-                owner: path[1],
-                repo: path[2],
-                issue_number: path[4]
-            }).then(issue => {
-                if (issue.status < 200 || issue.status >= 300) newMessage.delete("invalid issue");
-            }).catch(() => newMessage.delete("invalid issue"));
-        } else newMessage.delete("invalid url");
-    } else if (newMessage.channel.id === "955164131844051077") { // pull-request
-        if (data.length > 10) return newMessage.delete("description too long");
-        if (urls.length !== 1) return newMessage.delete("wrong number of urls");
-
-        const url = new URL(urls[0]), path = url.pathname.split`/`;
-        if (url.origin === "https://github.com" && path.length === 4) {
-            octokit.request("GET /repos/{owner}/{repo}/pulls/{pull_number}", {
-                owner: path[1],
-                repo: path[2],
-                pull_number: path[4]
-            }).then(pr => {
-                if (pr.status < 200 || pr.status >= 300) newMessage.delete("invalid pull-request");
-            }).catch(() => newMessage.delete("invalid pull-request"));
-        } else newMessage.delete("invalid url");
-    } else if (newMessage.channel.id === "936354671747018782") { // gist
-        if (data.length > 10) return newMessage.delete("description too long");
-        if (urls.length !== 1) return newMessage.delete("wrong number of urls");
-
-        const url = new URL(urls[0]), path = url.pathname.split`/`;
-        if (url.origin === "https://gist.github.com" && path.length) {
-            octokit.request("GET /gists/{gist_id}", {
-                gist_id: url[2]
-            }).then(repo => {
-                if (repo.status < 200 || repo.status >= 300) newMessage.delete("invalid gist");
-            }).catch(() => newMessage.delete("invalid gist"));
-        } else newMessage.delete("invalid url");
-    };
+    if (message.channel.id === "963540278126469130") message.startThread({name: message.author.username, autoArchiveDuration: 60 });
 });
 
 client.on("interactionCreate", interaction => {
     if (interaction.isCommand()) {
-        if (interaction.commandName === "get") {
+        if (interaction.commandName === "get"){
+            interaction.reply({ content: "Pong!", fetchReply: true }).then(msg => {
+                interaction.editReply({ content: `Bot Latency: \`${msg.createdTimestamp - interaction.createdTimestamp}ms\`\nWebSocket Latency: \`${client.ws.ping}ms\``});
+            });
+        } else if(interaction.commandName === "get") {
             const path = interaction.options.getString("path");
             const parameters = [
                 interaction.options.getString("param1"),
