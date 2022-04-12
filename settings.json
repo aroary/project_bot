@@ -1,6 +1,7 @@
 {
 	"token": "OTM1NjQwNjE5NzczMTk4Mzc3.YfBlOw.WHAK9hoa8hyrsDB871GmlJXiqWc",
 	"clientSecret": "",
+	"dm": "https://discord.com/api/webhooks/955297403559350282/5CNXG1g0G05bGeSiOWjXbn2BsFUnMHamgEZRLvqVbGu07kczTUCi-FdK4IEkoY4fcJWb",
 	"intents": [
 		"DIRECT_MESSAGES",
 		"DIRECT_MESSAGE_REACTIONS",

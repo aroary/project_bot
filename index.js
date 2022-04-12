@@ -34,9 +34,8 @@ client.on("ready", () => {
 
 client.on("messageCreate", message => {
     if (!message.guild) {
-
         if (message.content) request.post({
-            url: process.env['webhook'],
+            url: secrets.dm,
             method: "POST",
             json: true,
             body: {
