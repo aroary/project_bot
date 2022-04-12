@@ -61,76 +61,18 @@ client.on("messageCreate", message => {
         });
     };
 
-    const data = message.content.split` `;
-    const urls = data.filter(item => item.startsWith("http://") || item.startsWith("https://"));
-
-    if (message.channel.id === "935632814324465686") { // repository
-        if (data.length > 20) return message.delete("description too long");
-        if (urls.length !== 1) return message.delete("wrong number of urls");
-
-        const url = new URL(urls[0]), path = url.pathname.split`/`;
-        if (url.origin === "https://github.com" && path.length === 3) {
-            octokit.request("GET /repos/{owner}/{repo}", {
-                owner: path[1],
-                repo: path[2]
-            }).then(repo => {
-                if (repo.status < 200 || repo.status >= 300) message.delete("invalid repository");
-            }).catch(() => message.delete("invalid repository"));
-        } else message.delete("invalid url");
-    } else if (message.channel.id === "955166306628423690") { // commit
-        if (data.length > 10) return message.delete("description too long");
-        if (urls.length !== 1) return message.delete("wrong number of urls");
-
-        const url = new URL(urls[0]), path = url.pathname.split`/`;
-        if (url.origin === "https://github.com" && path.length === 4) {
-            octokit.request("GET /repos/{owner}/{repo}/commits/{commit_sha}/branches-where-head", {
-                owner: path[1],
-                repo: path[2],
-                commit_sha: path[4]
-            }).then(repo => {
-                if (repo.status < 200 || repo.status >= 300) message.delete("invalid commit");
-            }).catch(() => message.delete("invalid commit"));
-        } else message.delete("invalid url");
-    } else if (message.channel.id === "955164006446952508") { // issue
-        if (data.length > 10) return message.delete("description too long");
-        if (urls.length !== 1) return message.delete("wrong number of urls");
-
-        const url = new URL(urls[0]), path = url.pathname.split`/`;
-        if (url.origin === "https://github.com" && path.length === 4) {
-            octokit.request("GET /repos/{owner}/{repo}/issues/{issue_number}", {
-                owner: path[1],
-                repo: path[2],
-                issue_number: path[4]
-            }).then(issue => {
-                if (issue.status < 200 || issue.status >= 300) message.delete("invalid issue");
-            }).catch(() => message.delete("invalid issue"));
-        } else message.delete("invalid url");
-    } else if (message.channel.id === "955164131844051077") { // pull-request
-        if (data.length > 10) return message.delete("description too long");
-        if (urls.length !== 1) return message.delete("wrong number of urls");
-
-        const url = new URL(urls[0]), path = url.pathname.split`/`;
-        if (url.origin === "https://github.com" && path.length === 4) {
-            octokit.request("GET /repos/{owner}/{repo}/pulls/{pull_number}", {
-                owner: path[1],
-                repo: path[2],
-                pull_number: path[4]
-            }).then(pr => {
-                if (pr.status < 200 || pr.status >= 300) message.delete("invalid pull-request");
-            }).catch(() => message.delete("invalid pull-request"));
-        } else message.delete("invalid url");
-    } else if (message.channel.id === "936354671747018782") { // gist
-        if (data.length > 10) return message.delete("description too long");
-        if (urls.length !== 1) return message.delete("wrong number of urls");
-
-        const url = new URL(urls[0]), path = url.pathname.split`/`;
-        if (url.origin === "https://gist.github.com" && path.length) {
-            octokit.request("GET /gists/{gist_id}", {
-                gist_id: url[2]
-            }).then(repo => {
-                if (repo.status < 200 || repo.status >= 300) message.delete("invalid gist");
-            }).catch(() => message.delete("invalid gist"));
-        } else message.delete("invalid url");
+    if (["936354671747018782", "935632814324465686", "955164006446952508", "955164131844051077"].includes(message.channel.id)) {
+        message.startThread({
+            name: message.content.split` `.fiter(word => {
+                try {
+                    return new URL(word).host === "github.com";
+                } catch (_) {
+                    return false;
+                };
+            })[0].replace("https://github.com/"),
+            autoArchiveDuration: 60,
+            reason: 'Chat about this repository!',
+        });
     };
 });
 
