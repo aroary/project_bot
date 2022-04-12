@@ -1,0 +1,17 @@
+{
+	"token": "",
+	"clientSecret": "",
+	"intents": [
+		"DIRECT_MESSAGES",
+		"DIRECT_MESSAGE_REACTIONS",
+		"GUILDS",
+		"GUILD_INTEGRATIONS",
+		"GUILD_INVITES",
+		"GUILD_MEMBERS",
+		"GUILD_MESSAGES",
+		"GUILD_MESSAGE_REACTIONS",
+		"GUILD_WEBHOOKS"
+	],
+	"port": 3000,
+	"redeploy": true
+}
