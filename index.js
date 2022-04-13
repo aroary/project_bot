@@ -71,7 +71,7 @@ client.on("messageCreate", message => {
 
 client.on("interactionCreate", interaction => {
     if (interaction.isCommand()) {
-        if (interaction.commandName === "get"){
+        if (interaction.commandName === "ping"){
             interaction.reply({ content: "Pong!", fetchReply: true }).then(msg => {
                 interaction.editReply({ content: `Bot Latency: \`${msg.createdTimestamp - interaction.createdTimestamp}ms\`\nWebSocket Latency: \`${client.ws.ping}ms\``});
             });
