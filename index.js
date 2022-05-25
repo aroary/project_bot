@@ -30,10 +30,7 @@ const commands = [
 ];
 
 client.on("ready", () => {
-    commands.forEach(command => {
-        client.application?.commands.create(command);
-    });
-
+    commands.forEach(command => client.application?.commands.create(command));
     client.user.setPresence({ activities: [{ type: "WATCHING", name: "DMs forward to staff" }], status: "online" });
 });
 
