@@ -61,9 +61,16 @@ client.on("messageCreate", message => {
                 }
             }, (error, response, body) => error && console.log(error, response, body));
         });
-    };
+    } else {
+        var score = 0;
+        message.content.toLowerCase().split(/ +/g).forEach(word => {
+            if (["can", "help", "need", "problem", "anyone", "me"].includes(word)) score++;
+        });
 
-    if (message.channel.id === "963540278126469130") message.startThread({name: message.author.username, autoArchiveDuration: 60 });
+        if (message.content.endsWith("?")) score++;
+
+        if (score >= 3) message.reply("Don't ask to ask, just ask (<#1026820541107163197>)\nhttps://dontasktoask.com/")
+    }
 });
 
 client.on("interactionCreate", interaction => {
