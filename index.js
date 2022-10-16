@@ -109,7 +109,7 @@ client.on("interactionCreate", interaction => {
     };
 });
 
-client.on('guildMemberAdd', member => member.roles.add("963462152268685342"));
+client.on('guildMemberAdd', member => member.roles.add("1031232801850269777"));
 
 client.login(secrets.token).then(() => client.online = true).catch(error => console.log(error));
 
