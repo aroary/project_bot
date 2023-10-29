@@ -6,6 +6,15 @@ const https = require("https");
 const discord = require("discord.js");
 
 const server = http.createServer();
+
+server.on("request", (req, res) => {
+    console.log("Server:", "request");
+    res.writeHead(302, { 'Location': 'https://discord.gg/d39DnYurrU' }).end();
+});
+
+// Listen
+server.listen(Number(process.env["PORT"]) || 3000, () => console.log("Server:", "Online"));
+
 const client = new discord.Client({
     intents: [
         discord.GatewayIntentBits.DirectMessages,
@@ -25,6 +34,8 @@ const client = new discord.Client({
 });
 
 client.on("ready", () => {
+    console.log("Client:", "ready");
+
     // Set status
     client.user.setPresence({ activities: [{ type: "WATCHING", name: "DMs forward to staff" }], status: "online" });
 });
@@ -72,9 +83,4 @@ client.on("messageCreate", message => {
 });
 
 // Login
-client.login(process.env["BOT_TOKEN"]).then(() => console.log("Client: Online")).catch(error => console.log(error));
-
-server.on("request", (req, res) => res.writeHead(302, { 'Location': 'https://discord.gg/d39DnYurrU' }).end());
-
-// Listen
-server.listen(Number(process.env["PORT"]) || 3000, () => console.log("Server: Online"));
+client.login(process.env["BOT_TOKEN"]).then(() => console.log("Client:", "Online")).catch(error => console.log(error));
