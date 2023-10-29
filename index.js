@@ -37,7 +37,10 @@ client.on("ready", () => {
     console.log("Client:", "ready");
 
     // Set status
-    client.user.setPresence({ activities: [{ type: "WATCHING", name: "DMs forward to staff" }], status: "online" });
+    client.user.setPresence({
+        activities: [{ type: discord.ActivityType.Watching, name: "DMs forward to staff" }],
+        status: "online",
+    });
 });
 
 client.on("messageCreate", message => {
