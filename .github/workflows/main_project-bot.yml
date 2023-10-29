@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - project-bot
+name: Deploy app to Azure
 
 on:
   push:
@@ -20,6 +20,16 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18.x'
+
+      - name: create environment file
+        run: |
+          touch .env
+          echo BOT_TOKEN =${{ secrets.BOT_TOKEN }} >> .env
+          echo BOT_APP_ID =${{ secrets.BOT_APP_ID }} >> .env
+          echo BOT_PUBLIC_KEY =${{ secrets.BOT_PUBLIC_KEY }} >> .env
+          echo BOT_CLIENT_SECRET =${{ secrets.BOT_CLIENT_SECRET }} >> .env
+          echo DM_ID =${{ secrets.DM_ID }} >> .env
+          echo DM_TOKEN =${{ secrets.DM_TOKEN }} >> .env
 
       - name: npm install, build, and test
         run: |
