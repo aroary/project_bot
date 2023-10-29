@@ -42,6 +42,8 @@ client.on("ready", () => {
 
 client.on("messageCreate", message => {
     if (!message.guild) {
+        console.log("Client:", "Message");
+
         // Create data
         const embeds = [];
 
