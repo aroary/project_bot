@@ -5,7 +5,8 @@ const Webhook = require("../../utils/webhook");
  * @param {Message} message
  */
 function handle(message) {
-    if (!message.guild) {
+    const client = require("../client");
+    if (message.author.id !== client.user.id && !message.guild) {
         console.log("Client:", "Message");
 
         // Create data
