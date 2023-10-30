@@ -42,7 +42,7 @@ fs.readdirSync(path.join(__dirname, "./commands")).filter(file => file.endsWith(
 });
 
 // Deploy
-false && client.deployment.reset()
+if (process.env["BOT_REDEPLOY"]) client.deployment.reset()
     .then(() => client.deployment.deploy(client.chatInputCommands.map(command => command.command))
         .then(() => console.log("Client:", "Deployed"))
         .catch(console.log))
