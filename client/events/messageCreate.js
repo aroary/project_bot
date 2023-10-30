@@ -1,4 +1,4 @@
-const { Message } = require("discord.js");
+const { Events, Message } = require("discord.js");
 const Webhook = require("../../utils/webhook");
 
 /**
@@ -34,4 +34,4 @@ function handle(message) {
     }
 }
 
-module.exports = { event: "messageCreate", call: handle };
+module.exports = { event: Events.MessageCreate, call: handle };

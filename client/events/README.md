@@ -1,7 +1,7 @@
 # Events
 #### Template
 ```js
-const discord = require("discord.js");
+const { Events } = require("discord.js");
 
 /**
  * @param {} PARAMETER
@@ -10,5 +10,5 @@ function handle(/* PARAMETERS */) {
     // Code
 }
 
-module.exports = { event: "EVENT_NAME", call: handle };
+module.exports = { event: Events.EVENT, call: handle };
 ```

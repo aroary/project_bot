@@ -1,14 +1,15 @@
-const { ActivityType } = require("discord.js");
-const client = require("../client");
+const { Events, ActivityType } = require("discord.js");
 
 function handle() {
-    console.log("Client:", "ready");
+    const client = require("../client");
 
     // Set status
     client.user.setPresence({
         activities: [{ type: ActivityType.Watching, name: "DMs forward to staff" }],
         status: "online",
     });
+
+    console.log("Client:", "ready");
 }
 
-module.exports = { event: "ready", call: handle };
+module.exports = { event: Events.ClientReady, call: handle };
