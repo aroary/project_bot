@@ -11,7 +11,7 @@ function handle(interaction) {
     interaction
         .reply({ content: "Pong", ephemeral: true })
         .then(reply => reply
-            .edit({ body: `${interaction.createdTimestamp - reply.createdTimestamp}ms` })
+            .edit({ content: `${interaction.createdTimestamp - reply.createdTimestamp}ms` })
             .catch(console.log))
         .catch(console.log);
 }
