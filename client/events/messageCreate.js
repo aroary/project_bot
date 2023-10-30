@@ -21,14 +21,12 @@ function handle(message) {
             .setImage(attachment.url)
             .setTimestamp()));
 
-        const webhook = new Webhook();
-        webhook.id = process.env["DM_ID"];
-        webhook.token = process.env["DM_TOKEN"];
-        webhook.post({
-            username: message.author.username,
-            avatar_url: message.author.avatarURL(),
-            embeds: [...message.embeds, ...embeds.map(embed => embed.toJSON())]
-        })
+        new Webhook(process.env["DM_ID"], process.env["DM_TOKEN"])
+            .post({
+                username: message.author.username,
+                avatar_url: message.author.avatarURL(),
+                embeds: [...message.embeds, ...embeds.map(embed => embed.toJSON())]
+            })
             .then(request => console.log("Webhook:", request.statusCode, request.statusMessage))
             .catch(console.log);
     }
