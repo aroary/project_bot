@@ -4,7 +4,7 @@ const { Client, Collection, GatewayIntentBits, Partials } = require("discord.js"
 
 class Bot extends Client {
     chatInputCommands = new Collection();
-    deploy = require("./utils/deploy");
+    deployment = require("./utils/deployment");
 };
 
 const client = new Bot({
@@ -42,9 +42,11 @@ fs.readdirSync(path.join(__dirname, "./commands")).filter(file => file.endsWith(
 });
 
 // Deploy
-client.deploy(client.chatInputCommands.map(command => command.command))
-    .then(() => console.log("Client:", "Deployed"))
-    .catch(console.log);
+false && client.deployment.reset()
+    .then(() => client.deployment.deploy(client.chatInputCommands.map(command => command.command))
+        .then(() => console.log("Client:", "Deployed"))
+        .catch(console.log))
+    .catch(console.log())
 
 // Login
 client.login(process.env["BOT_TOKEN"])
