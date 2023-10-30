@@ -11,6 +11,7 @@ const client = new Bot({
     intents: [
         GatewayIntentBits.DirectMessages,
         GatewayIntentBits.DirectMessageReactions,
+        GatewayIntentBits.DirectMessageTyping,
         GatewayIntentBits.Guilds,
         GatewayIntentBits.GuildIntegrations,
         GatewayIntentBits.GuildInvites,
