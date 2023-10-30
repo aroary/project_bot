@@ -1,4 +1,4 @@
-const { Events, Message } = require("discord.js");
+const { Events, Message, EmbedBuilder } = require("discord.js");
 const Webhook = require("../../utils/webhook");
 
 /**
@@ -11,12 +11,12 @@ function handle(message) {
         // Create data
         const embeds = [];
 
-        message.content && embeds.push(new discord.EmbedBuilder()
+        message.content && embeds.push(new EmbedBuilder()
             .setAuthor({ name: message.author.username, iconURL: message.author.avatarURL() })
             .setDescription(message.content)
             .setTimestamp());
 
-        message.attachments.forEach(attachment => embeds.push(new discord.EmbedBuilder()
+        message.attachments.forEach(attachment => embeds.push(new EmbedBuilder()
             .setAuthor({ name: message.author.username, iconURL: message.author.avatarURL() })
             .setImage(attachment.url)
             .setTimestamp()));
@@ -29,7 +29,7 @@ function handle(message) {
             avatar_url: message.author.avatarURL(),
             embeds: [...message.embeds, ...embeds.map(embed => embed.toJSON())]
         })
-            .then(() => console.log("Webhook:", res.statusCode, res.statusMessage))
+            .then(request => console.log("Webhook:", request.statusCode, request.statusMessage))
             .catch(console.log);
     }
 }
