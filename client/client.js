@@ -18,11 +18,13 @@ const client = new Bot({
         GatewayIntentBits.GuildMembers,
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.GuildMessageReactions,
-        GatewayIntentBits.GuildWebhooks
+        GatewayIntentBits.GuildWebhooks,
+        GatewayIntentBits.GuildMessageTyping
     ],
     partials: [
         Partials.Channel,
-        Partials.Message
+        Partials.Message,
+        Partials.User
     ]
 });
 
