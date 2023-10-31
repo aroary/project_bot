@@ -11,6 +11,8 @@ function handle(req, res) {
         .on('end', () => body = Buffer.concat(body).toString())
         .on("error", console.log);
 
+    console.log(body);
+
     res.writeHead(200, ":)").end();
 }
 
