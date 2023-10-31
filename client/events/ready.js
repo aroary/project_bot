@@ -6,7 +6,7 @@ function handle() {
     // Set status
     client.user.setPresence({
         activities: [{ type: ActivityType.Watching, name: "DMs forward to staff" }],
-        status: "online",
+        status: "idle",
     });
 
     console.log("Client:", "ready");
