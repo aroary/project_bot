@@ -124,7 +124,7 @@ setInterval(() => new GitHubBlog()
 
         latest = items[0]["post-id"]["_"];
     })
-    .catch(console.log), 10000);//3600000);
+    .catch(console.log), 3600000);
 
 /**
  * @description Start the system
