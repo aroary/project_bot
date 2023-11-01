@@ -19,12 +19,14 @@ const interval = setInterval(() => {
 
             const repository = response.data.items[Math.floor(Math.random() * response.data.items.length)];
 
-            client.channels.cache.get(process.env["REPOSITORIES_CHANNEL_ID"]).threads.create({
-                name: repository.name,
-                autoArchiveDuration: ThreadAutoArchiveDuration.OneHour,
-                message: { content: `${repository.description || ""}\n\n${repository.html_url}`.trimStart() },
-                reason: "Activity"
-            });
+            client.channels.cache.get(process.env["REPOSITORIES_CHANNEL_ID"]).threads
+                .create({
+                    name: repository.name,
+                    autoArchiveDuration: ThreadAutoArchiveDuration.OneHour,
+                    message: { content: `${repository.description || ""}\n\n${repository.html_url}`.trimStart() },
+                    reason: "Activity"
+                })
+                .catch(process.report.writeReport);
         })
         .catch(process.report.writeReport);
 }, 3600000 /* one hour */);
