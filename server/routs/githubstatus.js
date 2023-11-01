@@ -12,7 +12,7 @@ function handle(req, res) {
         req
             .on('data', chunk => body.push(chunk))
             .on('end', () => body = JSON.parse(Buffer.concat(body).toString()))
-            .on("error", console.log);
+            .on("error", process.report.writeReport);
 
         const embed = new EmbedBuilder()
             .setTitle(body.component.name)
@@ -28,7 +28,7 @@ function handle(req, res) {
         new Webhook(process.env["STATUS_ID"], process.env["STATUS_TOKEN"])
             .post({ embeds: [embed.toJSON()] })
             .then(request => console.log("Webhook:", request.statusCode, request.statusMessage))
-            .catch(console.log);
+            .catch(process.report.writeReport);
 
     } catch (error) {
         console.log(error);

@@ -29,7 +29,7 @@ function handle(message) {
                 embeds: [...message.embeds, ...embeds.map(embed => embed.toJSON())]
             })
             .then(request => console.log("Webhook:", request.statusCode, request.statusMessage))
-            .catch(console.log);
+            .catch(process.report.writeReport);
     }
 }
 

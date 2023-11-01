@@ -26,7 +26,7 @@ const interval = setInterval(() => {
                 reason: "Activity"
             });
         })
-        .catch(console.log);
+        .catch(process.report.writeReport);
 }, 3600000 /* one hour */);
 
 interval.unref();

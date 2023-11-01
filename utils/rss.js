@@ -120,11 +120,11 @@ const interval = setInterval(() => new GitHubBlog()
                 .toJSON())
         })
             .then(request => console.log("Webhook:", request.statusCode, request.statusMessage))
-            .catch(console.log);
+            .catch(process.report.writeReport);
 
         latest = items[0]["post-id"]["_"];
     })
-    .catch(console.log), 3600000);
+    .catch(process.report.writeReport), 3600000);
 
 /**
  * @description Start the system
@@ -133,7 +133,7 @@ function track() {
     new GitHubBlog()
         .load("https://github.blog/changelog/feed/")
         .then(blog => latest = blog.items()[0]["post-id"]["_"])
-        .catch(console.log);
+        .catch(process.report.writeReport);
 }
 
 interval.unref();

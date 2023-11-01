@@ -12,7 +12,7 @@ function handle(interaction) {
 
     interaction
         .reply({ content: `*${client.ws.ping}ms*`, ephemeral: true })
-        .catch(console.log);
+        .catch(process.report.writeReport);
 }
 
 module.exports = { command, call: handle };

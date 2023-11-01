@@ -48,10 +48,10 @@ fs.readdirSync(path.join(__dirname, "./commands")).filter(file => file.endsWith(
 if (process.argv.includes("--deploy")) client.deployment.reset()
     .then(() => client.deployment.deploy(client.chatInputCommands.map(command => command.command))
         .then(() => console.log("Client:", "Deployed"))
-        .catch(console.log))
-    .catch(console.log())
+        .catch(process.report.writeReport))
+    .catch(process.report.writeReport);
 else client.login(process.env["BOT_TOKEN"])
     .then(() => console.log("Client:", "Online"))
-    .catch(console.log);
+    .catch(process.report.writeReport);
 
 module.exports = client;

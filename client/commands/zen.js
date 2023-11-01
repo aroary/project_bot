@@ -12,8 +12,8 @@ function handle(interaction) {
     request("GET /zen")
         .then(response => interaction
             .reply({ content: response.data })
-            .catch(console.log))
-        .catch(console.log);
+            .catch(process.report.writeReport))
+        .catch(process.report.writeReport);
 }
 
 module.exports = { command, call: handle };

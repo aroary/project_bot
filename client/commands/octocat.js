@@ -12,8 +12,8 @@ function handle(interaction) {
     request("GET /octocat")
         .then(response => interaction
             .reply({ content: "```\n" + new TextDecoder("utf8").decode(response.data) + "\n```" })
-            .catch(console.log))
-        .catch(console.log);
+            .catch(process.report.writeReport))
+        .catch(process.report.writeReport);
 }
 
 module.exports = { command, call: handle };
