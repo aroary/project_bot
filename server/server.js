@@ -27,6 +27,6 @@ server.on("request", (req, res) => {
 });
 
 // Listen
-server.listen(Number(process.env["PORT"]) || 3000, () => console.log("Server:", "Online"));
+if (!process.env["BOT_DEPLOY"]) server.listen(Number(process.env["PORT"]) || 3000, () => console.log("Server:", "Online"));
 
 module.exports = server;

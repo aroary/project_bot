@@ -44,15 +44,13 @@ fs.readdirSync(path.join(__dirname, "./commands")).filter(file => file.endsWith(
     console.log("Client:", "Loaded", command.name);
 });
 
-// Deploy
-if (process.env["BOT_REDEPLOY"]) client.deployment.reset()
+// Login or Deploy
+if (process.env["BOT_DEPLOY"]) client.deployment.reset()
     .then(() => client.deployment.deploy(client.chatInputCommands.map(command => command.command))
         .then(() => console.log("Client:", "Deployed"))
         .catch(console.log))
     .catch(console.log())
-
-// Login
-client.login(process.env["BOT_TOKEN"])
+else client.login(process.env["BOT_TOKEN"])
     .then(() => console.log("Client:", "Online"))
     .catch(console.log);
 
