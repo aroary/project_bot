@@ -45,7 +45,7 @@ fs.readdirSync(path.join(__dirname, "./commands")).filter(file => file.endsWith(
 });
 
 // Login or Deploy
-if (process.env["BOT_DEPLOY"]) client.deployment.reset()
+if (process.argv.includes("--deploy")) client.deployment.reset()
     .then(() => client.deployment.deploy(client.chatInputCommands.map(command => command.command))
         .then(() => console.log("Client:", "Deployed"))
         .catch(console.log))
