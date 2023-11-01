@@ -1,17 +1,18 @@
 const { SlashCommandBuilder, CommandInteraction } = require('discord.js');
+const { request } = require("@octokit/request");
 
 const command = new SlashCommandBuilder()
-    .setName("ping")
+    .setName("zen")
     .setDescription("Ping the bot");
 
 /**
  * @param {CommandInteraction} interaction 
  */
 function handle(interaction) {
-    const client = require("../client");
-
-    interaction
-        .reply({ content: client.ws.ping.toString(), ephemeral: true })
+    request("GET /zen")
+        .then(response => interaction
+            .reply({ content: response.data })
+            .catch(console.log))
         .catch(console.log);
 }
 

@@ -94,7 +94,7 @@ class GitHubBlog {
 var latest = null;
 
 // Run every hour
-setInterval(() => new GitHubBlog()
+const interval = setInterval(() => new GitHubBlog()
     .load("https://github.blog/changelog/feed/")
     .then(blog => {
         const items = blog.items();
@@ -136,4 +136,6 @@ function track() {
         .catch(console.log);
 }
 
-module.exports = { track, GitHubBlog, GitHubBlogItem, GitHubBlogChannel };
+interval.unref();
+
+module.exports = { track, interval, GitHubBlog, GitHubBlogItem, GitHubBlogChannel };
