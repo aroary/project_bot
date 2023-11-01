@@ -9,6 +9,9 @@ function handle() {
         status: "idle",
     });
 
+    // Start trending timer
+    require("../utils/trending");
+
     console.log("Client:", "ready");
 }
 
