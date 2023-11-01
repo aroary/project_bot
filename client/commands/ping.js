@@ -11,7 +11,7 @@ function handle(interaction) {
     const client = require("../client");
 
     interaction
-        .reply({ content: client.ws.ping.toString(), ephemeral: true })
+        .reply({ content: `*${client.ws.ping}ms*`, ephemeral: true })
         .catch(console.log);
 }
 
