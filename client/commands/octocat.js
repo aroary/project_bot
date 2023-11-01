@@ -11,7 +11,7 @@ const command = new SlashCommandBuilder()
 function handle(interaction) {
     request("GET /octocat")
         .then(response => interaction
-            .reply({ content: "```\n" + response.data + "\n```" })
+            .reply({ content: "```\n" + new TextDecoder("utf8").decode(response.data) + "\n```" })
             .catch(console.log))
         .catch(console.log);
 }
