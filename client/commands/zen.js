@@ -3,7 +3,7 @@ const { request } = require("@octokit/request");
 
 const command = new SlashCommandBuilder()
     .setName("zen")
-    .setDescription("Ping the bot");
+    .setDescription("zen message");
 
 /**
  * @param {CommandInteraction} interaction 

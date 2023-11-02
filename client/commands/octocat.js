@@ -3,7 +3,7 @@ const { request } = require("@octokit/request");
 
 const command = new SlashCommandBuilder()
     .setName("octocat")
-    .setDescription("Ping the bot");
+    .setDescription("octocat ASCII art");
 
 /**
  * @param {CommandInteraction} interaction 
