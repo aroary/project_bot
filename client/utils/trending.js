@@ -24,7 +24,8 @@ const interval = setInterval(() => {
                     name: repository.name,
                     autoArchiveDuration: ThreadAutoArchiveDuration.OneHour,
                     message: { content: `${repository.description || ""}\n\n${repository.html_url}`.trimStart() },
-                    reason: "Activity"
+                    reason: "Activity",
+                    appliedTags: ["Other"]
                 })
                 .catch(process.report.writeReport);
         })
