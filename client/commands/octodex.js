@@ -3,6 +3,9 @@ const { SlashCommandBuilder, CommandInteraction, SlashCommandStringOption } = re
 const { parseStringPromise } = require('xml2js');
 const { NodeHtmlMarkdown } = require("node-html-markdown");
 
+/**
+ * @type {[{title:string,content:string}]}
+ */
 var choices = [];
 
 new Promise((resolve, reject) => https.get("https://octodex.github.com/atom.xml", response => {
@@ -35,8 +38,13 @@ const command = new SlashCommandBuilder()
  * @param {CommandInteraction} interaction 
  */
 function handle(interaction) {
-    interaction
-        .reply({ content: interaction.options.getString("id") })
+    const id = interaction.options.getString("id");
+    const art = choices.find(choice => id === choice.content || id === choice.title);
+    if (art) interaction
+        .reply({ content: art })
+        .catch(process.report.writeReport);
+    else interaction
+        .reply({ content: id, ephemeral: true })
         .catch(process.report.writeReport);
 }
 
@@ -45,7 +53,7 @@ function handle(interaction) {
  */
 function autoComplete(interaction) {
     const focused = interaction.options.getFocused();
-    console.log(focused);
+
     if (true) interaction.respond(choices
         .filter(choice => choice.title.toLowerCase().includes(focused.toLowerCase()))
         .slice(0, 24)
