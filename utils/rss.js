@@ -124,7 +124,7 @@ const interval = setInterval(() => new GitHubBlog()
 
         latest = items[0]["post-id"]["_"];
     })
-    .catch(process.report.writeReport), 3600000);
+    .catch(process.report.writeReport), 300000 /* five minutes */);
 
 /**
  * @description Start the system
