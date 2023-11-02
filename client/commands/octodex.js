@@ -43,9 +43,24 @@ function handle(interaction) {
     if (art) interaction
         .reply({ content: art.content })
         .catch(process.report.writeReport);
-    else interaction
-        .reply({ content: id, ephemeral: true })
-        .catch(process.report.writeReport);
+    else {
+        const messages = choices.map(choice => choice.title);
+
+        interaction
+            .reply({
+                content: "*`" + messages
+                    .splice(0, Math.floor(messages.length / 2))
+                    .join("`*, *`") + "`*",
+                ephemeral: true
+            })
+            .then(reply => reply.interaction.followUp({
+                content: "*`" + messages
+                    .splice(0, messages.length)
+                    .join("`*, *`") + "`*",
+                ephemeral: true
+            }))
+            .catch(process.report.writeReport);
+    }
 }
 
 /**
