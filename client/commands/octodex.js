@@ -1,5 +1,5 @@
 const https = require("https");
-const { SlashCommandBuilder, CommandInteraction, SlashCommandStringOption } = require('discord.js');
+const { SlashCommandBuilder, CommandInteraction, SlashCommandStringOption, EmbedBuilder } = require('discord.js');
 const { parseStringPromise } = require('xml2js');
 const { NodeHtmlMarkdown } = require("node-html-markdown");
 
@@ -41,7 +41,7 @@ function handle(interaction) {
     const id = interaction.options.getString("id");
     const art = choices.find(choice => id === choice.content || id === choice.title);
     if (art) interaction
-        .reply({ content: art })
+        .reply({ content: art.content })
         .catch(process.report.writeReport);
     else interaction
         .reply({ content: id, ephemeral: true })
