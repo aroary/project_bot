@@ -35,6 +35,8 @@ function initiate() {
                             .post({ embeds: [item] })
                             .then(request => console.log("Webhook:", request.statusCode, request.statusMessage))
                             .catch(process.report.writeReport), i * 5000));
+
+                    latest = response.data[0].ghsa_id;
                 })
                 .catch(process.report.writeReport), 300000 /* five minutes */));
         })
