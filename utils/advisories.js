@@ -4,6 +4,10 @@ const Webhook = require("./webhook");
 
 var latest = null;
 
+/**
+ * @description Start watching advisories
+ * @returns {Promise<NodeJS.Timer,Error>}
+ */
 function initiate() {
     return new Promise((resolve, reject) => request("GET /advisories")
         .then(response => {

@@ -17,6 +17,14 @@ const server = require("./server/server");
 // Start client
 const client = require("./client/client");
 
-// Start RSS feed
-const { track } = require("./utils/rss");
-track();
+// Start advisories feed
+const advisories = require("./utils/advisories");
+advisories()
+    .then(interval => interval.unref())
+    .catch(process.report.writeReport);
+
+// Start changelog feed
+const changelog = require("./utils/changelog");
+changelog()
+    .then(interval => interval.unref())
+    .catch(process.report.writeReport);
