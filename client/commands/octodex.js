@@ -45,8 +45,10 @@ function handle(interaction) {
  */
 function autoComplete(interaction) {
     const focused = interaction.options.getFocused();
-    if (focused.name === "id") interaction.respond(choices
-        .filter(choice => choice.title.toLowerCase().includes(focused.value.toLowerCase()))
+    console.log(focused);
+    if (true) interaction.respond(choices
+        .filter(choice => choice.title.toLowerCase().includes(focused.toLowerCase()))
+        .slice(0, 24)
         .map(choice => ({ name: choice.title, value: choice.content })));
     else interaction.respond([]);
 }
