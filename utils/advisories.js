@@ -23,7 +23,7 @@ function initiate() {
                         .reverse()
                         .map(item => new EmbedBuilder()
                             .setTitle(item.summary)
-                            .setDescription(item.description.slice(0, 1000))
+                            .setDescription(item.description.slice(0, 1500))
                             .setURL(item.html_url)
                             .setAuthor({
                                 name: item.credits?.[0]?.user?.login || "GitHub",
