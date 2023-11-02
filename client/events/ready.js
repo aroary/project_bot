@@ -10,7 +10,10 @@ function handle() {
     });
 
     // Start trending timer
-    require("../utils/trending");
+    const trending = require("../utils/trending");
+    trending()
+        .then(interval => interval.unref())
+        .catch(process.report.writeReport)
 
     console.log("Client:", "ready");
 }

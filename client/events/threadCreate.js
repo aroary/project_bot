@@ -1,13 +1,11 @@
 const { Events, ThreadChannel, ChannelType } = require("discord.js");
-const trending = require("../utils/trending");
 
 /**
  * @param {ThreadChannel} thread
  */
 function handle(thread) {
-    if (thread.type === ChannelType.PublicThread) {
+    if (thread.type === ChannelType.PublicThread && thread.parentId === process.env["REPOSITORIES_CHANNEL_ID"]) {
         // Refresh threading timer
-        trending.refresh();
     }
 }
 
