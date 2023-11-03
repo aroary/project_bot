@@ -1,15 +1,8 @@
-// Load configurations
+// Set report configuration
+require("./utils/error")();
+
+// Load enviroment configurations
 require('dotenv').config();
-
-const fs = require("fs");
-
-// Set error report directory
-fs.mkdirSync("./logs", { recursive: true });
-for (const file of fs.readdirSync("./logs")) fs.unlinkSync("./logs/" + file);
-process.report.directory = "./logs";
-process.report.reportOnFatalError = true;
-process.report.reportOnSignal = true;
-process.report.reportOnUncaughtException = true;
 
 // Start server
 const server = require("./server/server");
@@ -18,13 +11,11 @@ const server = require("./server/server");
 const client = require("./client/client");
 
 // Start advisories feed
-const advisories = require("./utils/advisories");
-advisories()
+require("./utils/advisories")()
     .then(interval => interval.unref())
     .catch(process.report.writeReport);
 
 // Start changelog feed
-const changelog = require("./utils/changelog");
-changelog()
+require("./utils/changelog")()
     .then(interval => interval.unref())
     .catch(process.report.writeReport);

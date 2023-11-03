@@ -27,6 +27,6 @@ server.on("request", (req, res) => {
 });
 
 // Listen
-if (!process.argv.includes("--deploy")) server.listen(Number(process.env["PORT"]) || 3000, () => console.log("Server:", "Online"));
+server.listen(Number(process.env["PORT"]) || 3000, () => console.log("Server:", "Online"));
 
 module.exports = server;

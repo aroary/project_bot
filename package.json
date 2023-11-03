@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "deploy": "node index.js --deploy"
+    "deploy": "node scripts/deploy.js",
+    "reset": "node scripts/deploy.js --reset"
   },
   "keywords": [
     "project",

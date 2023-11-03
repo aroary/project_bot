@@ -29,8 +29,6 @@ class Bot extends Client {
      * @type {Collection<string,ClientCommand>}
      */
     commands = new Collection();
-
-    deployment = require("./utils/deployment");
 };
 
 const client = new Bot({
@@ -74,13 +72,8 @@ fs.readdirSync(path.join(__dirname, "./commands")).filter(file => file.endsWith(
     console.log("Client:", "Loaded", data.command.name);
 });
 
-// Login or Deploy
-if (process.argv.includes("--deploy")) client.deployment.reset()
-    .then(() => client.deployment.deploy(client.commands.map(command => command.command))
-        .then(() => console.log("Client:", "Deployed"))
-        .catch(process.report.writeReport))
-    .catch(process.report.writeReport);
-else client.login(process.env["BOT_TOKEN"])
+// Login
+client.login(process.env["BOT_TOKEN"])
     .then(() => console.log("Client:", "Online"))
     .catch(process.report.writeReport);
 
