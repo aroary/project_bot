@@ -6,7 +6,6 @@ const {
     GatewayIntentBits,
     Partials,
     SlashCommandBuilder,
-    CommandInteraction
 } = require("discord.js");
 
 /**
