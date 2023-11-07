@@ -30,7 +30,13 @@ function handle(message) {
             })
             .then(request => console.log("Webhook:", request.statusCode, request.statusMessage))
             .catch(process.report.writeReport);
-    }
+    } else if ([
+        process.env["CHANGELOG_ID"],
+        process.env["STATUS_ID"],
+        process.env["ADVISOR_ID"]
+    ].includes(message.author.id)) message
+        .crosspost()
+        .catch(process.report.writeReport);
 }
 
 module.exports = { event: Events.MessageCreate, call: handle };
