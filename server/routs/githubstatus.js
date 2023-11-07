@@ -11,7 +11,7 @@ function handle(req, res) {
         new Promise((resolve, reject) => {
             var body = [];
             req
-                .on('data', chunk => body.push(chunk))
+                .on('data', chunk => body.push(chunk, console.log(chunk)))
                 .on('end', () => resolve(JSON.parse(Buffer.concat(body).toString())))
                 .on("error", reject);
         })
