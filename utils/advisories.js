@@ -11,11 +11,11 @@ var latest = null;
 function initiate() {
     return new Promise((resolve, reject) => request("GET /advisories")
         .then(response => {
-            latest = response.data[0].ghsa_id;
+            latest = response.data[0].summary;
 
             resolve(setInterval(() => request("GET /advisories")
                 .then(res => {
-                    var index = res.data.findIndex(item => item.ghsa_id === latest);
+                    var index = res.data.findIndex(item => item.summary === latest);
                     if (index < 0) index = res.data.length;
 
                     if (index) res.data
@@ -36,7 +36,7 @@ function initiate() {
                             .then(request => console.log("Webhook:", request.statusCode, request.statusMessage))
                             .catch(process.report.writeReport), i * 5000));
 
-                    latest = res.data[0].ghsa_id;
+                    latest = res.data[0].summary;
                 })
                 .catch(process.report.writeReport), 300000 /* five minutes */));
         })
