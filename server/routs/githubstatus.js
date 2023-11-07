@@ -25,12 +25,12 @@ function handle(req, res) {
                             {
                                 name: "Old Status",
                                 value: body.component_update.old_status.replace("_", " "),
-                                inline: false
+                                inline: true
                             },
                             {
                                 name: "New Status",
                                 value: body.component_update.new_status.replace("_", " "),
-                                inline: false
+                                inline: true
                             }
                         )
                         .setColor({ none: "#28a746", minor: "#dbab09", major: "#e36209", critical: "#dc3546" }[body.page.status_indicator])
