@@ -15,7 +15,7 @@ function initiate() {
 
             resolve(setInterval(() => request("GET /advisories")
                 .then(res => {
-                    if (index) res.data
+                    res.data
                         .filter(item => !published.has(item.ghsa_id))
                         .reverse()
                         .map(item => new EmbedBuilder()
