@@ -15,6 +15,7 @@ if (require.main === module) {
     require('dotenv').config();
 
     const fs = require("fs");
+    const path = require("path");
 
     if (process.argv.includes("--reset")) reset
         .then(() => console.log("Client:", "Deployed"))
