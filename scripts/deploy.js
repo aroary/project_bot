@@ -1,5 +1,7 @@
 const { REST, Routes } = require("discord.js");
 
+if (!process.env["BOT_TOKEN"] || !process.env["BOT_APP_ID"]) require('dotenv').config();
+
 const rest = new REST().setToken(process.env["BOT_TOKEN"]);
 
 function reset() {
