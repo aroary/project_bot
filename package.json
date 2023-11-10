@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "test": "node scripts/test.js",
     "deploy": "node scripts/deploy.js",
     "reset": "node scripts/deploy.js --reset"
   },

@@ -3,8 +3,8 @@ const path = require("path");
 const sql = require('mssql');
 
 const db = new sql.ConnectionPool({
-    user: Buffer.from(process.env["DB_USERNAME"], 'base64').toString('ascii'),
-    password: Buffer.from(process.env["DB_PASSWORD"], 'base64').toString('ascii'),
+    user: Buffer.from(process.env["DB_USERNAME"] || "", 'base64').toString('ascii'),
+    password: Buffer.from(process.env["DB_PASSWORD"] || "", 'base64').toString('ascii'),
     server: process.env["DB_SERVER"],
     port: Number(process.env["DB_PORT"]) || 1433,
     database: process.env["DB_NAME"],
