@@ -1,5 +1,6 @@
 const { Events, Message, EmbedBuilder } = require("discord.js");
 const Webhook = require("../../utils/webhook");
+const { queries, db } = require("../../utils/database");
 
 /**
  * @param {Message} message
@@ -36,6 +37,18 @@ function handle(message) {
         process.env["ADVISOR_ID"]
     ].includes(message.author.id)) message
         .crosspost()
+        .catch(process.report.writeReport);
+
+    // Add points
+    if (!message.author.bot) db
+        .then(poolConnection => poolConnection
+            .request()
+            .query(queries
+                .get("increment")
+                .declare("id", message.author.id, "bigint")
+                .declare("points", 1, "int")
+                .compile())
+            .catch(process.report.writeReport))
         .catch(process.report.writeReport);
 }
 
