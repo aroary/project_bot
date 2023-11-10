@@ -22,7 +22,7 @@ class Query {
      * @description Set the values of the variables in the query.
      * @param {string} key
      * @param {any} value
-     * @param {string} type - The SQL type of value
+     * @param {"int"|"bigint"} type - The SQL type of value
      * @returns {Query}
      */
     declare(key, value, type) {
