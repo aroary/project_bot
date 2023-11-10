@@ -11,7 +11,8 @@ const command = new ContextMenuCommandBuilder()
 function handle(interaction) {
     if (interaction.targetUser.bot) interaction
         .reply({
-            content: `<@${interaction.targetUser.id}> has **${Infinity}** points!`
+            content: `<@${interaction.targetUser.id}> has **${Infinity}** points!`,
+            ephemeral: true
         })
         .catch(process.report.writeReport);
     else queries
