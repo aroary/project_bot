@@ -1,6 +1,6 @@
 const { Events, Message, EmbedBuilder, ChannelType } = require("discord.js");
 const Webhook = require("../../utils/webhook");
-const { queries, db } = require("../../utils/database");
+const { queries } = require("../../utils/database");
 
 /**
  * @param {Message} message
@@ -46,15 +46,11 @@ function handle(message) {
         if (message.channel.name.toLowerCase() === "general") points++;
         if (message.member.premiumSince) points *= 2;
 
-        db
-        .then(poolConnection => poolConnection
-            .request()
-            .query(queries
-                .get("increment")
-                .declare("id", message.author.id, "bigint")
-                .declare("points", points, "int")
-                .compile())
-            .catch(process.report.writeReport))
+        queries
+            .get("increment")
+            .declare("id", message.author.id, "bigint")
+            .declare("points", points, "int")
+            .send()
             .catch(process.report.writeReport);
     }
 }

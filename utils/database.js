@@ -20,19 +20,6 @@ const config = {
 
 const db = sql.connect(config);
 
-// sql
-//     .connect(config)
-//     .then(poolConnection => poolConnection
-//         .request()
-//         .query(`SELECT TOP 10 * FROM [dbo].[member_points]`)
-//         .then(resultSet => {
-//             console.log(`${resultSet.recordset.length} rows returned.`);
-//             console.table(resultSet.recordset);
-//         })
-//         .catch(process.report.writeReport)
-//         .finally(poolConnection.close))
-//     .catch(process.report.writeReport);
-
 class Query {
     constructor (query) {
         this.query = query;
@@ -53,14 +40,19 @@ class Query {
 
     /**
      * @description Get the query with the declared variables.
-     * @returns {string}
+     * @returns {Promise<sql.IResult,Error>}
      */
-    compile() {
+    send() {
         const query = this.declarations.join("\n") + "\n\n" + this.query;
-
         this.declarations = [];
 
-        return query;
+        return new Promise((resolve, reject) => db
+            .then(poolConnection => poolConnection
+                .request()
+                .query(query)
+                .then(resolve)
+                .catch(reject))
+            .catch(process.report.writeReport));
     }
 };
 
