@@ -12,7 +12,7 @@ function handle(interaction) {
     console.log(1);
     queries
         .get("amount")
-        .declare("id", interaction.member.id, "bigint")
+        .declare("id", interaction.targetUser.id, "bigint")
         .send()
         .then(resultSet => interaction
             .reply({
