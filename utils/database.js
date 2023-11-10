@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const sql = require('mssql');
 
-const config = {
+const db = new sql.ConnectionPool({
     user: Buffer.from(process.env["DB_USERNAME"], 'base64').toString('ascii'),
     password: Buffer.from(process.env["DB_PASSWORD"], 'base64').toString('ascii'),
     server: process.env["DB_SERVER"],
@@ -10,15 +10,7 @@ const config = {
     database: process.env["DB_NAME"],
     authentication: { type: 'default' },
     options: { encrypt: true }
-};
-
-/**
- * @typedef {{type:string}} DBAuthenticationConfig
- * @typedef {{encrypt:boolean}} DBOptionsConfig
- * @typedef {{user:string,password:string,server:string,port:number,database:string,authentication:DBAuthenticationConfig,options:DBOptionsConfig}} DBConfig
- */
-
-const db = sql.connect(config);
+});
 
 class Query {
     constructor (query) {
@@ -47,6 +39,7 @@ class Query {
         this.declarations = [];
 
         return new Promise((resolve, reject) => db
+            .connect()
             .then(poolConnection => poolConnection
                 .request()
                 .query(query)
