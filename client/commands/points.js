@@ -9,8 +9,12 @@ const command = new ContextMenuCommandBuilder()
  * @param {CommandInteraction} interaction 
  */
 function handle(interaction) {
-    console.log(1);
-    queries
+    if (interaction.targetUser.bot) interaction
+        .reply({
+            content: `<@${interaction.targetUser.id}> has **${Infinity}** points!`
+        })
+        .catch(process.report.writeReport);
+    else queries
         .get("amount")
         .declare("id", interaction.targetUser.id, "bigint")
         .send()
