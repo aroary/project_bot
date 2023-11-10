@@ -65,7 +65,7 @@ function handle(interaction) {
             break;
 
         default:
-            interaction.reply({ content: "Something whent worng", ephemeral: true });
+            interaction.reply({ content: "Something whent wrong", ephemeral: true });
             break;
     }
 }

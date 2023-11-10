@@ -9,7 +9,7 @@ function handle(interaction) {
     if (interaction.isChatInputCommand() || interaction.isMessageContextMenuCommand() || interaction.isUserContextMenuCommand()) {
         const command = client.commands.get(interaction.commandName);
         if (command) command.call(interaction);
-        else interaction.reply({ content: "Something whent worng", ephemeral: true });
+        else interaction.reply({ content: "Something whent wrong", ephemeral: true });
 
         // Add points
         if (interaction.channel.type.type !== ChannelType.DM) queries
