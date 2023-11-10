@@ -1,5 +1,5 @@
 const { Events, Interaction, ChannelType } = require("discord.js");
-
+const { queries, db } = require("../../utils/database")
 /**
  * @param {Interaction} interaction
  */
