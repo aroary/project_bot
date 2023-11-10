@@ -1,6 +1,4 @@
-SELECT
-    id,
-    points
+SELECT TOP 10
+    *
 FROM member_points
-WHERE points = (SELECT MAX(points)
-FROM member_points)
+ORDER BY points DESC;

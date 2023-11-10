@@ -33,7 +33,18 @@ const command = new SlashCommandBuilder()
 function handle(interaction) {
     switch (interaction.options.getSubcommand()) {
         case "leaders":
-            interaction.reply({ content: "You!", ephemeral: true });
+            queries
+                .get("leaderboard")
+                .send()
+                .then(resultSet => interaction
+                    .reply({
+                        content: resultSet.recordset
+                            .map(record => `- <@${record.id}>: **${record.points}**`)
+                            .join("\n"),
+                        ephemeral: true
+                    })
+                    .catch(process.report.writeReport))
+                .catch(process.report.writeReport);
             break;
 
         case "count":
