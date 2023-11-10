@@ -1,4 +1,4 @@
-const { Events, Message, EmbedBuilder } = require("discord.js");
+const { Events, Message, EmbedBuilder, ChannelType } = require("discord.js");
 const Webhook = require("../../utils/webhook");
 const { queries, db } = require("../../utils/database");
 
@@ -40,16 +40,23 @@ function handle(message) {
         .catch(process.report.writeReport);
 
     // Add points
-    if (!message.author.bot) db
+    if (!message.author.bot && message.channel.type !== ChannelType.DM) {
+        var points = 1;
+
+        if (message.channel.name.toLowerCase() === "general") points++;
+        if (message.member.premiumSince) points *= 2;
+
+        db
         .then(poolConnection => poolConnection
             .request()
             .query(queries
                 .get("increment")
                 .declare("id", message.author.id, "bigint")
-                .declare("points", 1, "int")
+                .declare("points", points, "int")
                 .compile())
             .catch(process.report.writeReport))
-        .catch(process.report.writeReport);
+            .catch(process.report.writeReport);
+    }
 }
 
 module.exports = { event: Events.MessageCreate, call: handle };
