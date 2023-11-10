@@ -16,7 +16,7 @@ function handle(interaction) {
         .send()
         .then(resultSet => interaction
             .reply({
-                content: `<@${interaction.targetUser.id}> has **${resultSet.recordset[0].points}** points!`,
+                content: `<@${interaction.targetUser.id}> has **${resultSet.recordset[0]?.points || 0}** points!`,
                 ephemeral: true
             })
             .catch(process.report.writeReport))
