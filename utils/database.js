@@ -44,7 +44,8 @@ class Query {
                 .request()
                 .query(query)
                 .then(resolve)
-                .catch(reject))
+                .catch(reject)
+                .finally(poolConnection.close()))
             .catch(process.report.writeReport));
     }
 };
