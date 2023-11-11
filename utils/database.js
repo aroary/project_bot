@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const sql = require('mssql');
 
-const db = new sql.ConnectionPool({
+const pool = () => new sql.ConnectionPool({
     user: Buffer.from(process.env["DB_USERNAME"] || "", 'base64').toString('ascii'),
     password: Buffer.from(process.env["DB_PASSWORD"] || "", 'base64').toString('ascii'),
     server: process.env["DB_SERVER"],
@@ -12,6 +12,9 @@ const db = new sql.ConnectionPool({
     options: { encrypt: true }
 });
 
+var db = pool();
+
+setInterval(() => db = pool(), 600000);
 class Query {
     constructor (query) {
         this.query = query;
