@@ -14,7 +14,8 @@ const pool = () => new sql.ConnectionPool({
 
 var db = pool();
 
-setInterval(() => db = pool(), 600000);
+setInterval(() => db = pool(), 600000).unref();
+
 class Query {
     constructor (query) {
         this.query = query;
