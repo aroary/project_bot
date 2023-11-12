@@ -49,7 +49,10 @@ function handle(interaction) {
 
         case "count":
             var member = interaction.options.getUser("member") || interaction.user;
-            if (member.bot) interaction.reply({ content: `<@${member.id}> has **${Infinity}** points!` });
+            if (member.bot) interaction.reply({
+                content: `<@${member.id}> has **${Infinity}** points!`,
+                ephemeral: true
+            });
             else queries
                 .get("amount")
                 .declare("id", member.id, "bigint")
@@ -65,7 +68,10 @@ function handle(interaction) {
 
         case "donate":
             var member = interaction.options.getUser("member");
-            if (member.bot) interaction.reply({ content: `Donated **1** point to <@${member.id}>` });
+            if (member.bot) interaction.reply({
+                content: `Donated **1** point to <@${member.id}>`,
+                ephemeral: true
+            });
             else queries
                 .get("increment")
                 .declare("id", member.id, "bigint")
