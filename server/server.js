@@ -22,7 +22,6 @@ server.on("request", (req, res) => {
     const { method, url } = req;
 
     const dir = /[\/[\w\.]*]*/m.exec(url)[0];
-    console.log(dir, path.join(__dirname, "./static/", dir));
     const rout = server.routs.get(`${method} ${dir}`);
 
     if (rout) rout(req, res);
