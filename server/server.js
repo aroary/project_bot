@@ -1,6 +1,8 @@
 const fs = require("fs");
 const { Server } = require("http");
 const path = require("path");
+const mime = require("mime");
+
 class App extends Server {
     routs = new Map();
 };
@@ -19,9 +21,17 @@ fs
 server.on("request", (req, res) => {
     const { method, url } = req;
 
-    const rout = server.routs.get(`${method} ${/\/\w*/m.exec(url)}`);
+    const dir = /[\/[\w\.]*]*/m.exec(url)[0];
+    console.log(dir, path.join(__dirname, "./static/", dir));
+    const rout = server.routs.get(`${method} ${dir}`);
+
     if (rout) rout(req, res);
-    else res.writeHead(302, { 'Location': '/notfound' }).end();
+    else if (fs.existsSync(path.join(__dirname, "./static/", dir))) res
+        .setHeader("Content-Type", mime.getType(dir))
+        .end(fs.readFileSync(path.join(__dirname, "./static/", dir)));
+    else res
+        .writeHead(302, { 'Location': '/notfound' })
+        .end();
 
     console.log("Server:", method, url);
 });
