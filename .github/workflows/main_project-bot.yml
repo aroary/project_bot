@@ -37,6 +37,7 @@ jobs:
           echo ADVISOR_ID =${{ secrets.ADVISOR_ID }} >> .env
           echo ADVISOR_TOKEN =${{ secrets.ADVISOR_TOKEN }} >> .env
           echo SERVER_ID =${{ secrets.SERVER_ID }} >> .env
+          echo REPOSITORIES_CHANNEL_ID =${{ secrets.REPOSITORIES_CHANNEL_ID }} >> .env
           echo DB_USERNAME =${{ secrets.DB_USERNAME }} >> .env
           echo DB_PASSWORD =${{ secrets.DB_PASSWORD }} >> .env
           echo DB_SERVER =${{ secrets.DB_SERVER }} >> .env
