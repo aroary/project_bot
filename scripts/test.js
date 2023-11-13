@@ -64,7 +64,7 @@ const env = {
     ...require('dotenv').parse(fs.readFileSync(path.join(__dirname, "../.env")))
 };
 
-assert(env["PORT"], "PORT not configured.");
+// assert(env["PORT"], "PORT not configured.");
 assert(env["BOT_TOKEN"], "BOT_TOKEN not configured.");
 assert(env["BOT_APP_ID"], "BOT_APP_ID not configured.");
 assert(env["BOT_PUBLIC_KEY"], "BOT_PUBLIC_KEY not configured.");
