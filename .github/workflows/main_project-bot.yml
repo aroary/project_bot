@@ -30,9 +30,18 @@ jobs:
           echo BOT_CLIENT_SECRET =${{ secrets.BOT_CLIENT_SECRET }} >> .env
           echo DM_ID =${{ secrets.DM_ID }} >> .env
           echo DM_TOKEN =${{ secrets.DM_TOKEN }} >> .env
+          echo CHANGELOG_ID =${{ secrets.CHANGELOG_ID }} >> .env
+          echo CHANGELOG_TOKEN =${{ secrets.CHANGELOG_TOKEN }} >> .env
           echo STATUS_ID =${{ secrets.STATUS_ID }} >> .env
           echo STATUS_TOKEN =${{ secrets.STATUS_TOKEN }} >> .env
+          echo ADVISOR_ID =${{ secrets.ADVISOR_ID }} >> .env
+          echo ADVISOR_TOKEN =${{ secrets.ADVISOR_TOKEN }} >> .env
           echo SERVER_ID =${{ secrets.SERVER_ID }} >> .env
+          echo DB_USERNAME =${{ secrets.DB_USERNAME }} >> .env
+          echo DB_PASSWORD =${{ secrets.DB_PASSWORD }} >> .env
+          echo DB_SERVER =${{ secrets.DB_SERVER }} >> .env
+          echo DB_PORT =${{ secrets.DB_PORT }} >> .env
+          echo DB_NAME =${{ secrets.DB_NAME }} >> .env
 
       - name: npm install, build, and test
         run: |
