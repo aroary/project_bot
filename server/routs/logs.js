@@ -11,7 +11,7 @@ const mime = require("mime");
 function handle(req, res) {
     const token = parse(req.url, true).query.token || req.headers.token;
 
-    if (token === process.env["ADMIN_TOKEN"]) res
+    if (process.env["ADMIN_TOKEN"] && token === process.env["ADMIN_TOKEN"]) res
         .setHeader("Content-Type", mime.getType("json"))
         .end(JSON.stringify(fs
             .readdirSync(path.join(__dirname, "../../logs"))
