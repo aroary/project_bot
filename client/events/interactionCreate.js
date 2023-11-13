@@ -1,5 +1,6 @@
 const { Events, Interaction, ChannelType } = require("discord.js");
 const { queries } = require("../../utils/database")
+
 /**
  * @param {Interaction} interaction
  */
@@ -9,7 +10,12 @@ function handle(interaction) {
     if (interaction.isChatInputCommand() || interaction.isMessageContextMenuCommand() || interaction.isUserContextMenuCommand()) {
         const command = client.commands.get(interaction.commandName);
         if (command) command.call(interaction);
-        else interaction.reply({ content: "Something whent wrong", ephemeral: true });
+        else interaction
+            .reply({
+                content: "Something went wrong",
+                ephemeral: true
+            })
+            .catch(process.report.writeReport);
 
         // Add points
         if (interaction.channel.type.type !== ChannelType.DM) queries
@@ -22,6 +28,9 @@ function handle(interaction) {
         const command = client.commands.get(interaction.commandName);
         if (command && command.autoComplete) command.autoComplete(interaction);
         else;
+    } else if (interaction.isButton()) {
+        const button = client.buttons.get(interaction.customId);
+        if (button) button.call(interaction);
     }
 
     console.log("Client:", interaction.commandName);
