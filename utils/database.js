@@ -1,8 +1,8 @@
 const fs = require("fs");
 const path = require("path");
-const sql = require('mssql');
+const { ConnectionPool } = require('mssql');
 
-const pool = () => new sql.ConnectionPool({
+const dbAuth = {
     user: Buffer.from(process.env["DB_USERNAME"] || "", 'base64').toString('ascii'),
     password: Buffer.from(process.env["DB_PASSWORD"] || "", 'base64').toString('ascii'),
     server: process.env["DB_SERVER"],
@@ -10,11 +10,7 @@ const pool = () => new sql.ConnectionPool({
     database: process.env["DB_NAME"],
     authentication: { type: 'default' },
     options: { encrypt: true }
-});
-
-var db = pool();
-
-setInterval(() => db = pool(), 600000).unref();
+};
 
 class Query {
     constructor (query) {
@@ -42,7 +38,7 @@ class Query {
         const query = this.declarations.join("\n") + "\n\n" + this.query;
         this.declarations = [];
 
-        return new Promise((resolve, reject) => db
+        return new Promise((resolve, reject) => new ConnectionPool(dbAuth)
             .connect()
             .then(poolConnection => poolConnection
                 .request()
