@@ -9,9 +9,10 @@ disabled.components.forEach(component => console.log(component));
  * @param {GuildMember} member
  */
 function handle(member) {
-    require("../client").channels.cache.get("941519180719603712")/*.guilds.cache
+    return;
+    require("../client").channels.cache.guilds.cache
         .get(process.env["SERVER_ID"]).channels.cache
-        .find(channel => channel.name.toLowerCase() === "general")*/
+        .find(channel => channel.name.toLowerCase() === "general")
         .send({
             content: `Welcome ${member.displayName} \\👋`,
             components: [buttons]
