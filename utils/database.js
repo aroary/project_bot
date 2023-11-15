@@ -60,4 +60,4 @@ fs
     .map(file => ({ name: file, value: new Query(fs.readFileSync(path.join(__dirname, "./queries/", file))) }))
     .forEach(file => queries.set(file.name.replace(".sql", ""), file.value));
 
-module.exports = { Query, queries };
+module.exports = { Query, queries, dbAuth };
