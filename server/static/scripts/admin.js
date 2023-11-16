@@ -79,19 +79,35 @@
 
 const getToken = () => document.cookie
     .split(";")
-    .filter(cookie => cookie.startsWith("token"))?.[0]
-    ?.split("=")?.[1];
+    .filter(cookie => cookie.startsWith("token"))
+    ?.[0]
+    ?.split("=")
+    ?.[1];
 
 if (!getToken()) document.cookie = `token=${prompt("Token")}`;
 
 /**
- * @returns {Promise<ErrorReport,Error>}
+ * @returns {Promise<[ErrorReport],Error>}
  */
-function reports() {
+function logs() {
+    return new Promise(r => r([{ a: 1, b: 2, c: [{ g: 3, p: "aaa" }, { g: 4, p: "bbb" }] }]));
     return new Promise((resolve, reject) => fetch("/logs", { headers: { token: getToken() } })
         .then(response => response
             .json()
             .then(resolve)
             .catch(reject))
         .catch(console.error));
+}
+
+
+logs()
+    .then(reports => document.getElementById("reporting").innerHTML = reports.map(json_html).join(""))
+    .catch(console.error);
+
+
+function json_html(data) {
+    console.log(data);
+    if (Array.isArray(data)) return `<ol>${data.map(value => `<li>${json_html(value)}</li>`)}</ol>`;
+    else if (typeof data === "object") return `<dl>${Object.entries(data).map(entry => `<dt>${entry[0]}</dt><dd>${json_html(entry[1])}</dd>`)}</dl>`;
+    else return `${data}`;
 }
