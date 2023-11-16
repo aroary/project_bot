@@ -90,7 +90,6 @@ if (!getToken()) document.cookie = `token=${prompt("Token")}`;
  * @returns {Promise<[ErrorReport],Error>}
  */
 function logs() {
-    return new Promise(r => r([{ a: 1, b: 2, c: [{ g: 3, p: "aaa" }, { g: 4, p: "bbb" }] }]));
     return new Promise((resolve, reject) => fetch("/logs", { headers: { token: getToken() } })
         .then(response => response
             .json()
