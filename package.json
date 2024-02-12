@@ -16,7 +16,7 @@
   "author": "aroary",
   "license": "GPL-3.0",
   "dependencies": {
-    "@octokit/request": "^8.1.6",
+    "@octokit/request": "^8.2.0",
     "discord.js": "^14.14.1",
     "dotenv": "^16.3.2",
     "jsdom": "^24.0.0",
